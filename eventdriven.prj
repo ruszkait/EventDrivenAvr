@@ -1,0 +1,66 @@
+; ************************************************************
+; PROJECT:
+; AUTHOR:
+; ************************************************************
+
+; Micro + software running
+; ------------------------------------------------------------
+.MICRO "ATmega128"
+.TOOLCHAIN "GCC"
+.GCCPATH   "C:\WinAVR-20100110"
+.GCCMAKE   AUTO
+.TARGET    "eventdriven.hex"
+.SOURCE    "main.c" "queue.c" "queue.h" "messagequeue.c" "messagequeue.h" "config.h" "hd44780.h" "hd44780.c" "lcd.h" "lcd.c" "buttons.h" "buttons.c" "messages.h" "timer.c" "timer.h" "heap.h" "heap.c"
+
+.TRACE              ; Activate micro trace
+
+; Following lines are optional; if not included
+; exactly these values are taken by default
+; ------------------------------------------------------------
+.POWER VDD=5 VSS=0  ; Power nodes
+.CLOCK 1meg         ; Micro clock
+.STORE 250m         ; Trace (micro+signals) storage time
+
+; Micro nodes: RESET, AREF, PA0-PA7, PB0-PB7, PC0-PC7, PD0-PD7, PE0-PE7, PF0-PF7, PG0-PG4, TIM1OVF
+; Define here the hardware around the micro
+; ------------------------------------------------------------
+
+; PORTA LED display
+X1 LCD(16 4 250K) PA6 PA4 PA5 PA3 PA2 PA1 PA0 NC NC NC NC
+
+; PORTB 8 LED
+D1 VDD D1_NODE
+R1 D1_NODE PB0 0.62K
+D2 VDD D2_NODE
+R2 D2_NODE PB1 0.62K
+D3 VDD D3_NODE
+R3 D3_NODE PB2 0.62K
+D4 VDD D4_NODE
+R4 D4_NODE PB3 0.62K
+D5 VDD D5_NODE
+R5 D5_NODE PB4 0.62K
+D6 VDD D6_NODE
+R6 D6_NODE PB5 0.62K
+D7 VDD D7_NODE
+R7 D7_NODE PB6 0.62K
+D8 VDD D8_NODE
+R8 D8_NODE PB7 0.62K
+
+
+; PORTD 8 switches: keys 0-7
+K0 PD0 VSS
+K1 PD1 VSS
+K2 PD2 VSS
+K3 PD3 VSS
+K4 PD4 VSS
+K5 PD5 VSS
+K6 PD6 VSS
+K7 PD7 VSS
+
+
+; ------------------------------------------------------------
+; Oscilloscope
+.PLOT V(PB7)
+
+
+
